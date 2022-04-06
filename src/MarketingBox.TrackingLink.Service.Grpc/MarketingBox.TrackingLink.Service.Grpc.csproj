@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>Service.MarketingBox.TrackingLink.Service.Grpc</RootNamespace>
+    <RootNamespace>MarketingBox.TrackingLink.Service.Grpc</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Service.MarketingBox.TrackingLink.Service.Domain.Models\Service.MarketingBox.TrackingLink.Service.Domain.Models.csproj" />
+    <ProjectReference Include="..\MarketingBox.TrackingLink.Service.Domain.Models\MarketingBox.TrackingLink.Service.Domain.Models.csproj" />
   </ItemGroup>
 
 </Project>

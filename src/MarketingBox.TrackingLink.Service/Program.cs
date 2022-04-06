@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using Autofac.Extensions.DependencyInjection;
+using MarketingBox.TrackingLink.Service.Settings;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,9 +9,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MyJetWallet.Sdk.Service;
 using MySettingsReader;
-using Service.MarketingBox.TrackingLink.Service.Settings;
 
-namespace Service.MarketingBox.TrackingLink.Service
+namespace MarketingBox.TrackingLink.Service
 {
     public class Program
     {
@@ -32,7 +32,7 @@ namespace Service.MarketingBox.TrackingLink.Service
 
         public static void Main(string[] args)
         {
-            Console.Title = "MyJetWallet Service.MarketingBox.TrackingLink.Service";
+            Console.Title = "MyJetWallet MarketingBox.TrackingLink.Service";
 
             Settings = SettingsReader.GetSettings<SettingsModel>(SettingsFileName);
 

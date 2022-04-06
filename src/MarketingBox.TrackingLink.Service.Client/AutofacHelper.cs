@@ -2,7 +2,7 @@
 
 // ReSharper disable UnusedMember.Global
 
-namespace Service.MarketingBox.TrackingLink.Service.Client
+namespace MarketingBox.TrackingLink.Service.Client
 {
     public static class AutofacHelper
     {

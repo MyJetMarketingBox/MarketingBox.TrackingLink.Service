@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>Service.MarketingBox.TrackingLink.Service.Domain</RootNamespace>
+    <RootNamespace>MarketingBox.TrackingLink.Service.Domain</RootNamespace>
   </PropertyGroup>
 
 </Project>

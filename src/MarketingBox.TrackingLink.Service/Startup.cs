@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Autofac;
+using MarketingBox.TrackingLink.Service.Modules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -8,10 +9,9 @@ using Microsoft.Extensions.Hosting;
 using MyJetWallet.Sdk.GrpcSchema;
 using MyJetWallet.Sdk.Service;
 using Prometheus;
-using Service.MarketingBox.TrackingLink.Service.Modules;
 using SimpleTrading.ServiceStatusReporterConnector;
 
-namespace Service.MarketingBox.TrackingLink.Service
+namespace MarketingBox.TrackingLink.Service
 {
     public class Startup
     {

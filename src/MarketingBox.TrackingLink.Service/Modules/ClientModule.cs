@@ -1,6 +1,6 @@
 using Autofac;
 
-namespace Service.MarketingBox.TrackingLink.Service.Modules
+namespace MarketingBox.TrackingLink.Service.Modules
 {
     public class ClientModule : Module
     {

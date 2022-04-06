@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using MyJetWallet.Sdk.Grpc;
 
-namespace Service.MarketingBox.TrackingLink.Service.Client
+namespace MarketingBox.TrackingLink.Service.Client
 {
     [UsedImplicitly]
     public class ServiceClientFactory : MyGrpcClientFactory

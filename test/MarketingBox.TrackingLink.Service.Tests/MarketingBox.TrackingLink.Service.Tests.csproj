@@ -5,7 +5,7 @@
 
     <IsPackable>false</IsPackable>
 
-    <RootNamespace>Service.MarketingBox.TrackingLink.Service.Tests</RootNamespace>
+    <RootNamespace>MarketingBox.TrackingLink.Service.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

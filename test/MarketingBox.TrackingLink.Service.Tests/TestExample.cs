@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 
-namespace Service.MarketingBox.TrackingLink.Service.Tests
+namespace MarketingBox.TrackingLink.Service.Tests
 {
     public class TestExample
     {

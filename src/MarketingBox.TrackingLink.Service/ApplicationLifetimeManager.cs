@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using MyJetWallet.Sdk.Service;
 using MyJetWallet.Sdk.ServiceBus;
 
-namespace Service.MarketingBox.TrackingLink.Service
+namespace MarketingBox.TrackingLink.Service
 {
     public class ApplicationLifetimeManager : ApplicationLifetimeManagerBase
     {

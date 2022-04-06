@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>Service.MarketingBox.TrackingLink.Service.Client</RootNamespace>
+    <RootNamespace>MarketingBox.TrackingLink.Service.Client</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference PrivateAssets="All" Include="..\Service.MarketingBox.TrackingLink.Service.Domain.Models\Service.MarketingBox.TrackingLink.Service.Domain.Models.csproj" />
-    <ProjectReference PrivateAssets="All" Include="..\Service.MarketingBox.TrackingLink.Service.Grpc\Service.MarketingBox.TrackingLink.Service.Grpc.csproj" />
+    <ProjectReference PrivateAssets="All" Include="..\MarketingBox.TrackingLink.Service.Domain.Models\MarketingBox.TrackingLink.Service.Domain.Models.csproj" />
+    <ProjectReference PrivateAssets="All" Include="..\MarketingBox.TrackingLink.Service.Grpc\MarketingBox.TrackingLink.Service.Grpc.csproj" />
   </ItemGroup>
 
   <ItemGroup>

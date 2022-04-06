@@ -1,4 +1,4 @@
-# Service.MarketingBox.TrackingLink.Service
+# MarketingBox.TrackingLink.Service
 
 ![Release Service](https://github.com/MyJetWallet/Service.MarketingBox.TrackingLink.Service/workflows/Release%20Service/badge.svg)
 
