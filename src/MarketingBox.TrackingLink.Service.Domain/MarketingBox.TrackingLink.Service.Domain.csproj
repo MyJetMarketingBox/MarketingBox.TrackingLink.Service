@@ -5,4 +5,11 @@
     <RootNamespace>MarketingBox.TrackingLink.Service.Domain</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="MarketingBox.Affiliate.Service.Client" Version="2.2.15" />
+    <PackageReference Include="MarketingBox.Sdk.Common" Version="1.0.10" />
+    <PackageReference Include="MyJetWallet.Sdk.NoSql" Version="2.1.2" />
+  </ItemGroup>
+
 </Project>

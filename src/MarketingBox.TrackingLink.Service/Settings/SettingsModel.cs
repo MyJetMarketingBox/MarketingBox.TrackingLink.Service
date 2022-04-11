@@ -16,5 +16,8 @@ namespace MarketingBox.TrackingLink.Service.Settings
         
         [YamlProperty("MarketingBoxTrackingLinkService.PostgresConnectionString")]
         public string PostgresConnectionString { get; set; }
+        
+        [YamlProperty("MarketingBoxTrackingLinkService.MyNoSqlReaderHostPort")]
+        public string MyNoSqlReaderHostPort { get; set; }
     }
 }

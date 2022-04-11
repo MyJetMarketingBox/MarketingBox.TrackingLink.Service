@@ -3,13 +3,14 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <UserSecretsId>e6392ce6-dc7d-480a-a426-abbb0307ac7d</UserSecretsId>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>9</LangVersion>
     <RootNamespace>MarketingBox.TrackingLink.Service</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
     <PackageReference Include="JetBrains.Annotations" Version="2021.3.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
     <PackageReference Include="MyJetWallet.Sdk.GrpcMetrics" Version="2.0.4" />
@@ -27,6 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MarketingBox.TrackingLink.Service.Domain\MarketingBox.TrackingLink.Service.Domain.csproj" />
     <ProjectReference Include="..\MarketingBox.TrackingLink.Service.Grpc\MarketingBox.TrackingLink.Service.Grpc.csproj" />
+    <ProjectReference Include="..\MarketingBox.TrackingLink.Service.Postgres\MarketingBox.TrackingLink.Service.Postgres.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,7 +38,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services" />
     <Folder Include="Subscribers" />
   </ItemGroup>
 

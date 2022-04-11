@@ -1,12 +1,17 @@
 ﻿using System.Reflection;
 using Autofac;
+using MarketingBox.TrackingLink.Service.Grpc;
 using MarketingBox.TrackingLink.Service.Modules;
+using MarketingBox.TrackingLink.Service.Postgres;
+using MarketingBox.TrackingLink.Service.Repositories.Interfaces;
+using MarketingBox.TrackingLink.Service.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyJetWallet.Sdk.GrpcSchema;
+using MyJetWallet.Sdk.Postgres;
 using MyJetWallet.Sdk.Service;
 using Prometheus;
 using SimpleTrading.ServiceStatusReporterConnector;
@@ -22,6 +27,13 @@ namespace MarketingBox.TrackingLink.Service
             services.AddHostedService<ApplicationLifetimeManager>();
 
             services.AddMyTelemetry("SP-", Program.Settings.ZipkinUrl);
+
+            MyDbContext.LoggerFactory = Program.LogFactory;
+            services.AddDatabase(DatabaseContext.Schema, 
+                Program.Settings.PostgresConnectionString, 
+                o => new DatabaseContext(o));
+
+            services.AddAutoMapper(typeof(Startup));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -41,6 +53,7 @@ namespace MarketingBox.TrackingLink.Service
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapGrpcSchema<TrackingLinkService, ITrackingLinkService>();
                 endpoints.MapGrpcSchemaRegistry();
 
                 endpoints.MapGet("/", async context =>

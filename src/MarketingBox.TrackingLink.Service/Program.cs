@@ -14,7 +14,7 @@ namespace MarketingBox.TrackingLink.Service
 {
     public class Program
     {
-        public const string SettingsFileName = ".marketingboxetrackinglinkservice";
+        public const string SettingsFileName = ".marketingboxtrackinglinkservice";
 
         public static SettingsModel Settings { get; private set; }
 
