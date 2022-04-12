@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using MarketingBox.TrackingLink.Service.Domain.Models;
@@ -25,11 +26,12 @@ namespace MarketingBox.TrackingLink.Service.Repositories
             
             await using var ctx = new DatabaseContext(_dbContextOptionsBuilder.Options);
             var existing = await ctx.TrackingLinks
-                .FirstOrDefaultAsync(x => x.UniqueId == request.UniqueId);
+                .OrderBy(x=>x.Id)
+                .LastOrDefaultAsync(x => x.UniqueId == request.UniqueId);
             
             trackingLink.ClickId = existing is null
                 ? 1
-                : existing.ClickId++;
+                : existing.ClickId+1;
             trackingLink.LinkParameterValues.ClickId = trackingLink.ClickId.ToString(); 
             
             ctx.Add(trackingLink);

@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using AutoMapper;
 using MarketingBox.Affiliate.Service.MyNoSql.OfferAffiliates;
 using MarketingBox.Sdk.Common.Exceptions;
@@ -32,6 +33,8 @@ namespace MarketingBox.TrackingLink.Service.Services
         {
             try
             {
+                request.ValidateEntity();
+                
                 var offerAffiliateNoSql = _noSqlServerDataReader.Get(
                     OfferAffiliateNoSql.GeneratePartitionKey(),
                     OfferAffiliateNoSql.GenerateRowKey(request.UniqueId));
@@ -91,7 +94,8 @@ namespace MarketingBox.TrackingLink.Service.Services
                 trackingLink.LinkParameterValues.MPC_4,
                 builder);
 
-            builder.Remove(builder.Length - 2, 2);
+            builder.Remove(builder.Length - 1, 1);
+            
             return builder.ToString();
         }
 
@@ -101,11 +105,12 @@ namespace MarketingBox.TrackingLink.Service.Services
             StringBuilder builder)
         {
             if (string.IsNullOrEmpty(parameterName) || string.IsNullOrEmpty(parameterValue)) return;
+            
             builder.Append("?");
-            builder.Append(parameterName);
+            builder.Append(HttpUtility.UrlEncode(parameterName));
             builder.Append("=");
-            builder.Append(parameterValue);
-            builder.Append("&&");
+            builder.Append(HttpUtility.UrlEncode(parameterValue));
+            builder.Append("&");
         }
     }
 }
