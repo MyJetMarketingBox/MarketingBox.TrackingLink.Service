@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Logging;
 using MyJetWallet.Sdk.NoSql;
 using MyJetWallet.Sdk.Service;
-using MyJetWallet.Sdk.ServiceBus;
 
 namespace MarketingBox.TrackingLink.Service
 {
@@ -12,7 +11,7 @@ namespace MarketingBox.TrackingLink.Service
         private readonly MyNoSqlClientLifeTime _myNoSqlClientLifeTime;
 
         public ApplicationLifetimeManager(IHostApplicationLifetime appLifetime,
-            ILogger<ApplicationLifetimeManager> logger, 
+            ILogger<ApplicationLifetimeManager> logger,
             MyNoSqlClientLifeTime myNoSqlClientLifeTime)
             : base(appLifetime)
         {

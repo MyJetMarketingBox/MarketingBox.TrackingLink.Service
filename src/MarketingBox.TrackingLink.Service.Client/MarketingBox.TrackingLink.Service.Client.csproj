@@ -8,6 +8,7 @@
   <ItemGroup>
     <ProjectReference PrivateAssets="All" Include="..\MarketingBox.TrackingLink.Service.Domain.Models\MarketingBox.TrackingLink.Service.Domain.Models.csproj" />
     <ProjectReference PrivateAssets="All" Include="..\MarketingBox.TrackingLink.Service.Grpc\MarketingBox.TrackingLink.Service.Grpc.csproj" />
+    <ProjectReference Include="..\MarketingBox.TrackingLink.Service\MarketingBox.TrackingLink.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>
