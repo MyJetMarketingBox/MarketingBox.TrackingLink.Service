@@ -69,6 +69,7 @@ namespace MarketingBox.TrackingLink.Service.Services
         {
             var builder = new StringBuilder();
             builder.Append(trackingLink.Link);
+            builder.Append("?");
             AppendParameter(
                 trackingLink.LinkParameterNames.Language,
                 trackingLink.LinkParameterValues.Language,
@@ -106,7 +107,6 @@ namespace MarketingBox.TrackingLink.Service.Services
         {
             if (string.IsNullOrEmpty(parameterName) || string.IsNullOrEmpty(parameterValue)) return;
             
-            builder.Append("?");
             builder.Append(HttpUtility.UrlEncode(parameterName));
             builder.Append("=");
             builder.Append(HttpUtility.UrlEncode(parameterValue));
