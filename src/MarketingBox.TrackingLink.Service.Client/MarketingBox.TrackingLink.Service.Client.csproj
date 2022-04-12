@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MarketingBox.TrackingLink.Service.Grpc\MarketingBox.TrackingLink.Service.Grpc.csproj" />
+    <ProjectReference PrivateAssets="All" Include="..\MarketingBox.TrackingLink.Service.Grpc\MarketingBox.TrackingLink.Service.Grpc.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
