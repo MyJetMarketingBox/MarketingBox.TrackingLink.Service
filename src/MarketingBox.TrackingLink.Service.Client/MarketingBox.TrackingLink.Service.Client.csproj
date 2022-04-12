@@ -6,12 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference PrivateAssets="All" Include="..\MarketingBox.TrackingLink.Service.Domain.Models\MarketingBox.TrackingLink.Service.Domain.Models.csproj" />
-    <ProjectReference PrivateAssets="All" Include="..\MarketingBox.TrackingLink.Service.Grpc\MarketingBox.TrackingLink.Service.Grpc.csproj" />
-    <ProjectReference Include="..\MarketingBox.TrackingLink.Service\MarketingBox.TrackingLink.Service.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Autofac" Version="6.3.0" />
     <PackageReference Include="JetBrains.Annotations" Version="2021.3.0" />
     <PackageReference Include="Grpc.Net.Client" Version="2.44.0" />
@@ -19,6 +13,10 @@
     <PackageReference Include="MyJetWallet.Sdk.GrpcMetrics" Version="2.0.4" />
     <PackageReference Include="System.ServiceModel.Primitives" Version="4.9.0" />
     <PackageReference Include="protobuf-net.Grpc" Version="1.0.152" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MarketingBox.TrackingLink.Service.Grpc\MarketingBox.TrackingLink.Service.Grpc.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
