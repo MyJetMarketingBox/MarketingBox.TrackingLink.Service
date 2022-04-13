@@ -25,14 +25,6 @@ namespace MarketingBox.TrackingLink.Service.Repositories
             var trackingLink = _mapper.Map<Domain.Models.TrackingLink>(request);
             
             await using var ctx = new DatabaseContext(_dbContextOptionsBuilder.Options);
-            var existing = await ctx.TrackingLinks
-                .OrderBy(x=>x.Id)
-                .LastOrDefaultAsync(x => x.UniqueId == request.UniqueId);
-            
-            trackingLink.ClickId = existing is null
-                ? 1
-                : existing.ClickId+1;
-            trackingLink.LinkParameterValues.ClickId = trackingLink.ClickId.ToString(); 
             
             ctx.Add(trackingLink);
             

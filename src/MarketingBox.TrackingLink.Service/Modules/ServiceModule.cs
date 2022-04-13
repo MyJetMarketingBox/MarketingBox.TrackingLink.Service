@@ -2,6 +2,8 @@
 using MarketingBox.Affiliate.Service.MyNoSql.Brands;
 using MarketingBox.Affiliate.Service.MyNoSql.Offer;
 using MarketingBox.Affiliate.Service.MyNoSql.OfferAffiliates;
+using MarketingBox.TrackingLink.Service.Engines;
+using MarketingBox.TrackingLink.Service.Engines.Interfaces;
 using MarketingBox.TrackingLink.Service.Repositories;
 using MarketingBox.TrackingLink.Service.Repositories.Interfaces;
 using MyJetWallet.Sdk.NoSql;
@@ -19,6 +21,9 @@ namespace MarketingBox.TrackingLink.Service.Modules
 
             builder.RegisterType<TrackingLinkRepository>()
                 .As<ITrackingLinkRepository>()
+                .SingleInstance();
+            builder.RegisterType<NoSqlDataReader>()
+                .As<INoSqlDataReader>()
                 .SingleInstance();
         }
     }

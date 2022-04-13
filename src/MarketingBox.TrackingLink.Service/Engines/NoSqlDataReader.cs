@@ -38,7 +38,7 @@ namespace MarketingBox.TrackingLink.Service.Engines
         }
         public OfferAffiliate GetOfferAffiliate(string uniqueId)
         {
-            var offerAffiliateNoSql = _noSqlOfferAffiliateReader.Get(OfferNoSql.GeneratePartitionKey(), uniqueId);
+            var offerAffiliateNoSql = _noSqlOfferAffiliateReader.Get(OfferAffiliateNoSql.GeneratePartitionKey(), uniqueId);
             return offerAffiliateNoSql?.OfferAffiliate;
         }
     }
