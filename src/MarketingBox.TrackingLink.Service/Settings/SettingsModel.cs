@@ -19,5 +19,8 @@ namespace MarketingBox.TrackingLink.Service.Settings
         
         [YamlProperty("MarketingBoxTrackingLinkService.MyNoSqlReaderHostPort")]
         public string MyNoSqlReaderHostPort { get; set; }
+        
+        [YamlProperty("MarketingBoxTrackingLinkService.MarketingBoxServiceBusHostPort")]
+        public string MarketingBoxServiceBusHostPort { get; set; }
     }
 }

@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketingBox.TrackingLink.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketingBox.TrackingLink.Service.Postgres", "src\MarketingBox.TrackingLink.Service.Postgres\MarketingBox.TrackingLink.Service.Postgres.csproj", "{64E568A9-6CBC-4780-894E-4475C3BA63D4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketingBox.TrackingLink.Service.Messages", "src\MarketingBox.TrackingLink.Service.Messages\MarketingBox.TrackingLink.Service.Messages.csproj", "{E4D4DB31-255E-4B16-9124-7DAA60A21353}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,10 @@ Global
 		{64E568A9-6CBC-4780-894E-4475C3BA63D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64E568A9-6CBC-4780-894E-4475C3BA63D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64E568A9-6CBC-4780-894E-4475C3BA63D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4D4DB31-255E-4B16-9124-7DAA60A21353}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4D4DB31-255E-4B16-9124-7DAA60A21353}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4D4DB31-255E-4B16-9124-7DAA60A21353}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4D4DB31-255E-4B16-9124-7DAA60A21353}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,6 +83,7 @@ Global
 		{FF868A2B-24FA-42B0-8400-95EDEE689678} = {D11EB899-A148-4C9B-B340-B907EF71C4A2}
 		{5CFE74A4-CDBB-4E2D-9C0A-9CEF20DCB38B} = {446301A0-97F2-4921-BA0B-32B76039C73B}
 		{64E568A9-6CBC-4780-894E-4475C3BA63D4} = {446301A0-97F2-4921-BA0B-32B76039C73B}
+		{E4D4DB31-255E-4B16-9124-7DAA60A21353} = {446301A0-97F2-4921-BA0B-32B76039C73B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6BF00C9D-AD55-40F2-8FE3-E5C3559B3E26}

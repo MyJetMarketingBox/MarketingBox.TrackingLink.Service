@@ -10,25 +10,29 @@ using MarketingBox.TrackingLink.Service.Domain.Models;
 using MarketingBox.TrackingLink.Service.Engines.Interfaces;
 using MarketingBox.TrackingLink.Service.Grpc;
 using MarketingBox.TrackingLink.Service.Grpc.Requests;
+using MarketingBox.TrackingLink.Service.Messages;
 using MarketingBox.TrackingLink.Service.Repositories.Interfaces;
+using MyJetWallet.Sdk.ServiceBus;
 
 namespace MarketingBox.TrackingLink.Service.Services
 {
     public class TrackingLinkService : ITrackingLinkService
     {
-
         private readonly ITrackingLinkRepository _repository;
         private readonly IMapper _mapper;
         private readonly INoSqlDataReader _noSqlDataReader;
+        private readonly IServiceBusPublisher<TrackingLinkUpsertMessage> _publisherTrackingLink;
 
         public TrackingLinkService(
-            ITrackingLinkRepository repository, 
+            ITrackingLinkRepository repository,
             IMapper mapper,
-            INoSqlDataReader noSqlDataReader)
+            INoSqlDataReader noSqlDataReader,
+            IServiceBusPublisher<TrackingLinkUpsertMessage> publisherTrackingLink)
         {
             _repository = repository;
             _mapper = mapper;
             _noSqlDataReader = noSqlDataReader;
+            _publisherTrackingLink = publisherTrackingLink;
         }
 
         public async Task<Response<string>> CreateAsync(TrackingLinkCreateRequest request)
@@ -42,14 +46,14 @@ namespace MarketingBox.TrackingLink.Service.Services
                 {
                     throw new NotFoundException($"OfferAffiliate with {nameof(request.UniqueId)}", request.UniqueId);
                 }
-                
+
                 var offerNoSql = _noSqlDataReader.GetOffer(offerAffiliateNoSql.OfferId);
                 if (offerNoSql is null)
                 {
                     throw new NotFoundException($"Offer with {nameof(offerAffiliateNoSql.OfferId)}",
                         offerAffiliateNoSql.OfferId);
                 }
-                
+
                 var brandNoSql = _noSqlDataReader.GetBrand(offerNoSql.BrandId);
                 if (brandNoSql is null)
                 {
@@ -67,6 +71,11 @@ namespace MarketingBox.TrackingLink.Service.Services
                     UniqueId = request.UniqueId
                 });
                 
+                await _publisherTrackingLink.PublishAsync(new TrackingLinkUpsertMessage
+                {
+                    TrackingLink = trackingLink
+                });
+
                 var url = BuildUrl(trackingLink);
                 return new Response<string>()
                 {
@@ -111,7 +120,7 @@ namespace MarketingBox.TrackingLink.Service.Services
                 builder);
 
             builder.Remove(builder.Length - 1, 1);
-            
+
             return builder.ToString();
         }
 
@@ -121,7 +130,7 @@ namespace MarketingBox.TrackingLink.Service.Services
             StringBuilder builder)
         {
             if (string.IsNullOrEmpty(parameterName) || string.IsNullOrEmpty(parameterValue)) return;
-            
+
             builder.Append(HttpUtility.UrlEncode(parameterName));
             builder.Append("=");
             builder.Append(HttpUtility.UrlEncode(parameterValue));
