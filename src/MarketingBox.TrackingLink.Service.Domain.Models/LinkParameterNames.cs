@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace MarketingBox.TrackingLink.Service.Domain.Models
 {
     [DataContract]
-    public class LinkParameters
+    public class LinkParameterNames
     {
         [DataMember(Order = 1), StringLength(20, MinimumLength = 1)]
         public string ClickId { get; set; }

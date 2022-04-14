@@ -3,7 +3,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using AutoMapper;
-using MarketingBox.Affiliate.Service.MyNoSql.OfferAffiliates;
 using MarketingBox.Sdk.Common.Exceptions;
 using MarketingBox.Sdk.Common.Extensions;
 using MarketingBox.Sdk.Common.Models.Grpc;
@@ -63,8 +62,8 @@ namespace MarketingBox.TrackingLink.Service.Services
                     Link = brandNoSql.Link,
                     AffiliateId = offerAffiliateNoSql.AffiliateId,
                     BrandId = brandNoSql.Id,
-                    LinkParameterValues = request.LinkParameterValues,
-                    LinkParameterNames = _mapper.Map<LinkParameters>(brandNoSql.LinkParameters),
+                    LinkParameterValuesValues = request.LinkParameterValuesValues,
+                    LinkParameterNames = _mapper.Map<LinkParameterNames>(brandNoSql.LinkParameters),
                     UniqueId = request.UniqueId
                 });
                 
@@ -92,7 +91,7 @@ namespace MarketingBox.TrackingLink.Service.Services
                 builder);
             AppendParameter(
                 trackingLink.LinkParameterNames.ClickId,
-                trackingLink.LinkParameterValues.ClickId,
+                trackingLink.ClickId.ToString(),
                 builder);
             AppendParameter(
                 trackingLink.LinkParameterNames.MPC_1,

@@ -9,7 +9,8 @@ namespace MarketingBox.TrackingLink.Service.MapperProfiles
         public TrackingLinkMapperProfile()
         {
             CreateMap<TrackingLinkCreateModel, Domain.Models.TrackingLink>();
-            CreateMap<LinkParameters, Domain.Models.LinkParameters>();
+            CreateMap<LinkParameters, Domain.Models.LinkParameterNames>();
+            CreateMap<LinkParameterValues, Domain.Models.LinkParameterNames>();
         }
     }
 }

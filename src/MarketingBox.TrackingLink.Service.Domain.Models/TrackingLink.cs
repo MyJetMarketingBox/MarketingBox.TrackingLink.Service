@@ -10,8 +10,10 @@ namespace MarketingBox.TrackingLink.Service.Domain.Models
         [DataMember(Order = 3)] public long BrandId { get; set; }
         [DataMember(Order = 4)] public long AffiliateId { get; set; }
         [DataMember(Order = 5)] public string Link { get; set; }
-        [DataMember(Order = 6)] public LinkParameters LinkParameterValues { get; set; }
-        [DataMember(Order = 7)] public LinkParameters LinkParameterNames { get; set; }
+        [DataMember(Order = 6)] public LinkParameterValues LinkParameterValues { get; set; }
+        [DataMember(Order = 7)] public LinkParameterNames LinkParameterNames { get; set; }
         [DataMember(Order = 8)] public string UniqueId { get; set; }
+        
+        public long? RegistrationId { get; set; }
     }
 }

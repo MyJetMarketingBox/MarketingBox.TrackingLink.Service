@@ -36,8 +36,13 @@ namespace MarketingBox.TrackingLink.Service.Postgres
             modelBuilder.Entity<Domain.Models.TrackingLink>().Property(x => x.BrandId).IsRequired();
             modelBuilder.Entity<Domain.Models.TrackingLink>().Property(x => x.AffiliateId).IsRequired();
             modelBuilder.Entity<Domain.Models.TrackingLink>().Property(x => x.UniqueId).IsRequired();
-            modelBuilder.Entity<Domain.Models.TrackingLink>().Property(x => x.ClickId).ValueGeneratedOnAdd();
             
+            modelBuilder.Entity<Domain.Models.TrackingLink>()
+                .Property(x => x.ClickId)
+                .IsRequired()
+                .ValueGeneratedOnAdd();
+            
+            modelBuilder.Entity<Domain.Models.TrackingLink>().HasIndex(x => x.ClickId).IsUnique();
             modelBuilder.Entity<Domain.Models.TrackingLink>().HasIndex(x => x.UniqueId);
         }
     }
