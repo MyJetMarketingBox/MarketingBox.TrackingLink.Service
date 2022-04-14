@@ -9,5 +9,5 @@ namespace MarketingBox.TrackingLink.Service.Grpc.Requests;
 public class TrackingLinkCreateRequest : ValidatableEntity
 {
     [DataMember(Order = 1), Required] public string UniqueId { get; set; }
-    [DataMember(Order = 2)] public LinkParameterValues LinkParameterValuesValues { get; set; }
+    [DataMember(Order = 2)] public LinkParameterValues LinkParameterValues { get; set; }
 }

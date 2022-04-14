@@ -62,7 +62,7 @@ namespace MarketingBox.TrackingLink.Service.Services
                     Link = brandNoSql.Link,
                     AffiliateId = offerAffiliateNoSql.AffiliateId,
                     BrandId = brandNoSql.Id,
-                    LinkParameterValuesValues = request.LinkParameterValuesValues,
+                    LinkParameterValues = request.LinkParameterValues,
                     LinkParameterNames = _mapper.Map<LinkParameterNames>(brandNoSql.LinkParameters),
                     UniqueId = request.UniqueId
                 });
