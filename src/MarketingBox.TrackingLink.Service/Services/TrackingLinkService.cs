@@ -3,6 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using AutoMapper;
+using MarketingBox.Affiliate.Service.Domain.Models.Offers;
 using MarketingBox.Sdk.Common.Exceptions;
 using MarketingBox.Sdk.Common.Extensions;
 using MarketingBox.Sdk.Common.Models.Grpc;
@@ -40,44 +41,53 @@ namespace MarketingBox.TrackingLink.Service.Services
             try
             {
                 request.ValidateEntity();
-
-                var offerAffiliateNoSql = _noSqlDataReader.GetOfferAffiliate(request.UniqueId);
-                if (offerAffiliateNoSql is null)
+                
+                Offer offer;
+                long affiliateId;
+                var strAffiliateId = request.UniqueId[32..];
+                var uniqueId = request.UniqueId[..32];
+                if (!string.IsNullOrEmpty(strAffiliateId))
                 {
-                    throw new NotFoundException($"OfferAffiliate with {nameof(request.UniqueId)}", request.UniqueId);
-                }
+                    offer = _noSqlDataReader.GetOffer(uniqueId);
 
-                var offerNoSql = _noSqlDataReader.GetOffer(offerAffiliateNoSql.OfferId);
-                if (offerNoSql is null)
-                {
-                    throw new NotFoundException($"Offer with {nameof(offerAffiliateNoSql.OfferId)}",
-                        offerAffiliateNoSql.OfferId);
-                }
+                    if (offer.Privacy == OfferPrivacy.Private)
+                    {
+                        throw new ForbiddenException("Offer is private now, you can't use public link.");
+                    }
 
-                var brandNoSql = _noSqlDataReader.GetBrand(offerNoSql.BrandId);
-                if (brandNoSql is null)
-                {
-                    throw new NotFoundException($"Brand with {nameof(offerNoSql.BrandId)}",
-                        offerNoSql.BrandId);
+                    if (!long.TryParse(strAffiliateId, out affiliateId))
+                    {
+                        throw new BadRequestException("Incorrect format of affiliateId");
+                    }
                 }
+                else
+                {
+                    var offerAffiliate = _noSqlDataReader.GetOfferAffiliate(request.UniqueId);
+                    
+                    affiliateId = offerAffiliate.AffiliateId;
+                    
+                    offer = _noSqlDataReader.GetOffer(offerAffiliate.OfferId);
+                }
+                
+                var brand = _noSqlDataReader.GetBrand(offer.BrandId);
 
                 var trackingLink = await _repository.CreateAsync(new()
                 {
-                    Link = brandNoSql.Link,
-                    AffiliateId = offerAffiliateNoSql.AffiliateId,
-                    BrandId = brandNoSql.Id,
+                    Link = brand.Link,
+                    AffiliateId = affiliateId,
+                    BrandId = brand.Id,
                     LinkParameterValues = request.LinkParameterValues,
-                    LinkParameterNames = _mapper.Map<LinkParameterNames>(brandNoSql.LinkParameters),
-                    UniqueId = request.UniqueId
+                    LinkParameterNames = _mapper.Map<LinkParameterNames>(brand.LinkParameters),
+                    UniqueId = uniqueId
                 });
-                
+
                 await _publisherTrackingLink.PublishAsync(new TrackingLinkUpsertMessage
                 {
                     TrackingLink = trackingLink
                 });
 
                 var url = BuildUrl(trackingLink);
-                return new Response<string>()
+                return new Response<string>
                 {
                     Status = ResponseStatus.Ok,
                     Data = url

@@ -6,8 +6,9 @@ namespace MarketingBox.TrackingLink.Service.Engines.Interfaces
 {
     public interface INoSqlDataReader
     {
-        BrandMessage GetBrand(long id);
-        Offer GetOffer(long id);
+        BrandMessage GetBrand(long brandId);
+        Offer GetOffer(long offerId);
+        Offer GetOffer(string uniqueId);
         OfferAffiliate GetOfferAffiliate(string uniqueId);
     }
 }

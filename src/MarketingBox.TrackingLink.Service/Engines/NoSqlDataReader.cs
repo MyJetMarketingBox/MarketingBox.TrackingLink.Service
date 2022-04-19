@@ -5,6 +5,7 @@ using MarketingBox.Affiliate.Service.Domain.Models.Offers;
 using MarketingBox.Affiliate.Service.MyNoSql.Brands;
 using MarketingBox.Affiliate.Service.MyNoSql.Offer;
 using MarketingBox.Affiliate.Service.MyNoSql.OfferAffiliates;
+using MarketingBox.Sdk.Common.Exceptions;
 using MarketingBox.TrackingLink.Service.Engines.Interfaces;
 using MyNoSqlServer.Abstractions;
 
@@ -26,20 +27,50 @@ namespace MarketingBox.TrackingLink.Service.Engines
             _noSqlBrandReader = noSqlBrandReader;
         }
 
-        public BrandMessage GetBrand(long id)
+        public BrandMessage GetBrand(long brandId)
         {
-            var brandNoSql = _noSqlBrandReader.Get().FirstOrDefault(x => x.Brand.Id == id);
-            return brandNoSql?.Brand;
+            var brand = _noSqlBrandReader.Get().FirstOrDefault(x => x.Brand.Id == brandId)?.Brand;
+
+            if (brand is null)
+            {
+                throw new NotFoundException("Brand with id", brandId);
+            }
+
+            return brand;
         }
-        public Offer GetOffer(long id)
+
+        public Offer GetOffer(long offerId)
         {
-            var offerNoSql = _noSqlOfferReader.Get().FirstOrDefault(x => x.Offer.Id == id);
-            return offerNoSql?.Offer;
+            var offer = _noSqlOfferReader.Get().FirstOrDefault(x => x.Offer.Id == offerId)?.Offer;
+            
+            if (offer is null)
+            {
+                throw new NotFoundException("Offer with id", offerId);
+            }
+            return offer;
         }
+
+        public Offer GetOffer(string uniqueId)
+        {
+            var offer = _noSqlOfferReader.Get().FirstOrDefault(x => x.UniqueId == uniqueId)?.Offer;
+            
+            if (offer is null)
+            {
+                throw new NotFoundException("Offer with uniqueId", uniqueId);
+            }
+            return offer;
+        }
+
         public OfferAffiliate GetOfferAffiliate(string uniqueId)
         {
-            var offerAffiliateNoSql = _noSqlOfferAffiliateReader.Get(OfferAffiliateNoSql.GeneratePartitionKey(), uniqueId);
-            return offerAffiliateNoSql?.OfferAffiliate;
+            var offerAffiliate = _noSqlOfferAffiliateReader
+                .Get(OfferAffiliateNoSql.GeneratePartitionKey(), uniqueId)?.OfferAffiliate;
+            
+            if (offerAffiliate is null)
+            {
+                throw new NotFoundException("OfferAffiliate with uniqueId", uniqueId);
+            }
+            return offerAffiliate;
         }
     }
 }
