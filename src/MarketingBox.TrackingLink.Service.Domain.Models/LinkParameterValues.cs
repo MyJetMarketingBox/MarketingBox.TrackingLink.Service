@@ -1,10 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using MarketingBox.Sdk.Common.Models;
 
 namespace MarketingBox.TrackingLink.Service.Domain.Models
 {
     [DataContract]
-    public class LinkParameterValues
+    public class LinkParameterValues : ValidatableEntity
     {
         [DataMember(Order = 1), StringLength(20, MinimumLength = 1)]
         public string Language { get; set; }
