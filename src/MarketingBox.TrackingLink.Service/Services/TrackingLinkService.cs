@@ -13,6 +13,7 @@ using MarketingBox.TrackingLink.Service.Grpc;
 using MarketingBox.TrackingLink.Service.Grpc.Requests;
 using MarketingBox.TrackingLink.Service.Messages;
 using MarketingBox.TrackingLink.Service.Repositories.Interfaces;
+using Microsoft.Extensions.Logging;
 using MyJetWallet.Sdk.ServiceBus;
 
 namespace MarketingBox.TrackingLink.Service.Services
@@ -23,17 +24,19 @@ namespace MarketingBox.TrackingLink.Service.Services
         private readonly IMapper _mapper;
         private readonly INoSqlDataReader _noSqlDataReader;
         private readonly IServiceBusPublisher<TrackingLinkUpsertMessage> _publisherTrackingLink;
+        private ILogger<TrackingLinkService> _logger;
 
         public TrackingLinkService(
             ITrackingLinkRepository repository,
             IMapper mapper,
             INoSqlDataReader noSqlDataReader,
-            IServiceBusPublisher<TrackingLinkUpsertMessage> publisherTrackingLink)
+            IServiceBusPublisher<TrackingLinkUpsertMessage> publisherTrackingLink, ILogger<TrackingLinkService> logger)
         {
             _repository = repository;
             _mapper = mapper;
             _noSqlDataReader = noSqlDataReader;
             _publisherTrackingLink = publisherTrackingLink;
+            _logger = logger;
         }
 
         public async Task<Response<string>> CreateAsync(TrackingLinkCreateRequest request)
@@ -48,6 +51,7 @@ namespace MarketingBox.TrackingLink.Service.Services
                 var uniqueId = request.UniqueId[..32];
                 if (!string.IsNullOrEmpty(strAffiliateId))
                 {
+                    _logger.LogInformation("Processing public link for affiliate {strAffiliateId}", strAffiliateId);
                     offer = _noSqlDataReader.GetOffer(uniqueId);
 
                     if (offer.Privacy == OfferPrivacy.Private)
@@ -62,6 +66,7 @@ namespace MarketingBox.TrackingLink.Service.Services
                 }
                 else
                 {
+                    _logger.LogInformation("Processing private link");
                     var offerAffiliate = _noSqlDataReader.GetOfferAffiliate(request.UniqueId);
                     
                     affiliateId = offerAffiliate.AffiliateId;
@@ -81,12 +86,16 @@ namespace MarketingBox.TrackingLink.Service.Services
                     UniqueId = uniqueId
                 });
 
+                _logger.LogInformation("Sending message to service bus: {@context}", trackingLink);
+
                 await _publisherTrackingLink.PublishAsync(new TrackingLinkUpsertMessage
                 {
                     TrackingLink = trackingLink
                 });
+                _logger.LogInformation("Message was sent.");
 
                 var url = BuildUrl(trackingLink);
+                _logger.LogInformation("Url was built: {@url}", url);
                 return new Response<string>
                 {
                     Status = ResponseStatus.Ok,
@@ -95,6 +104,7 @@ namespace MarketingBox.TrackingLink.Service.Services
             }
             catch (Exception e)
             {
+                _logger.LogError(e,@"Error occurred while processing request {@Request}",request);
                 return e.FailedResponse<string>();
             }
         }
