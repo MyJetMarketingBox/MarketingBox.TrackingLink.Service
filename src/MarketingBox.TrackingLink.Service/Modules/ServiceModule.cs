@@ -25,6 +25,11 @@ namespace MarketingBox.TrackingLink.Service.Modules
             builder.RegisterType<NoSqlDataReader>()
                 .As<INoSqlDataReader>()
                 .SingleInstance();
+
+            builder.RegisterType<TrackingLinkUpdateSubscriber>()
+                .As<IStartable>()
+                .SingleInstance()
+                .AutoActivate();
         }
     }
 }
