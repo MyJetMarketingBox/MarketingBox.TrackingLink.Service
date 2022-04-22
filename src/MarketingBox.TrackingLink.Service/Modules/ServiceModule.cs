@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using MarketingBox.Affiliate.Service.MyNoSql.Affiliates;
 using MarketingBox.Affiliate.Service.MyNoSql.Brands;
 using MarketingBox.Affiliate.Service.MyNoSql.Offer;
 using MarketingBox.Affiliate.Service.MyNoSql.OfferAffiliates;
@@ -18,6 +19,7 @@ namespace MarketingBox.TrackingLink.Service.Modules
             builder.RegisterMyNoSqlReader<OfferAffiliateNoSql>(noSqlClient, OfferAffiliateNoSql.TableName);
             builder.RegisterMyNoSqlReader<OfferNoSql>(noSqlClient, OfferNoSql.TableName);
             builder.RegisterMyNoSqlReader<BrandNoSql>(noSqlClient, BrandNoSql.TableName);
+            builder.RegisterMyNoSqlReader<AffiliateNoSql>(noSqlClient, AffiliateNoSql.TableName);
 
             builder.RegisterType<TrackingLinkRepository>()
                 .As<ITrackingLinkRepository>()

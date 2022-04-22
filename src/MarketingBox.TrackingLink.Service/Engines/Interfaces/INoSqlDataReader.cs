@@ -1,3 +1,4 @@
+using MarketingBox.Affiliate.Service.Domain.Models.Affiliates;
 using MarketingBox.Affiliate.Service.Domain.Models.Brands;
 using MarketingBox.Affiliate.Service.Domain.Models.OfferAffiliates;
 using MarketingBox.Affiliate.Service.Domain.Models.Offers;
@@ -10,5 +11,6 @@ namespace MarketingBox.TrackingLink.Service.Engines.Interfaces
         Offer GetOffer(long offerId);
         Offer GetOffer(string uniqueId);
         OfferAffiliate GetOfferAffiliate(string uniqueId);
+        AffiliateMessage GetAffiliate(long affiliateId);
     }
 }

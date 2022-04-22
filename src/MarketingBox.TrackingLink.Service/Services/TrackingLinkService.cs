@@ -63,6 +63,8 @@ namespace MarketingBox.TrackingLink.Service.Services
                     {
                         throw new BadRequestException("Incorrect format of affiliateId");
                     }
+
+                    _noSqlDataReader.GetAffiliate(affiliateId);
                 }
                 else
                 {
