@@ -15,5 +15,6 @@ namespace MarketingBox.TrackingLink.Service.Domain.Models
         [DataMember(Order = 8)] public string UniqueId { get; set; }
         
         [DataMember(Order = 9)] public long? RegistrationId { get; set; }
+        [DataMember(Order = 10)] public string TenantId { get; set; }
     }
 }

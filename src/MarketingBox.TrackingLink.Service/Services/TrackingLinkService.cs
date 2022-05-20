@@ -24,7 +24,7 @@ namespace MarketingBox.TrackingLink.Service.Services
         private readonly IMapper _mapper;
         private readonly INoSqlDataReader _noSqlDataReader;
         private readonly IServiceBusPublisher<TrackingLinkUpsertMessage> _publisherTrackingLink;
-        private ILogger<TrackingLinkService> _logger;
+        private readonly ILogger<TrackingLinkService> _logger;
 
         public TrackingLinkService(
             ITrackingLinkRepository repository,
@@ -44,16 +44,17 @@ namespace MarketingBox.TrackingLink.Service.Services
             try
             {
                 request.ValidateEntity();
-                
+
                 Offer offer;
                 long affiliateId;
                 var strAffiliateId = request.UniqueId[32..];
                 var uniqueId = request.UniqueId[..32];
+                string tenantId;
                 if (!string.IsNullOrEmpty(strAffiliateId))
                 {
                     _logger.LogInformation("Processing public link for affiliate {strAffiliateId}", strAffiliateId);
-                    offer = _noSqlDataReader.GetOffer(uniqueId);
-
+                    offer = await _noSqlDataReader.GetOffer(uniqueId);
+                    tenantId = offer.TenantId;
                     if (offer.Privacy == OfferPrivacy.Private)
                     {
                         throw new ForbiddenException("Offer is private now, you can't use public link.");
@@ -64,19 +65,19 @@ namespace MarketingBox.TrackingLink.Service.Services
                         throw new BadRequestException("Incorrect format of affiliateId");
                     }
 
-                    _noSqlDataReader.GetAffiliate(affiliateId);
+                    await _noSqlDataReader.GetAffiliate(affiliateId);
                 }
                 else
                 {
                     _logger.LogInformation("Processing private link");
-                    var offerAffiliate = _noSqlDataReader.GetOfferAffiliate(request.UniqueId);
-                    
+                    var offerAffiliate = await _noSqlDataReader.GetOfferAffiliate(request.UniqueId);
+                    tenantId = offerAffiliate.TenantId;
                     affiliateId = offerAffiliate.AffiliateId;
-                    
-                    offer = _noSqlDataReader.GetOffer(offerAffiliate.OfferId);
+
+                    offer = await _noSqlDataReader.GetOffer(offerAffiliate.OfferId);
                 }
-                
-                var brand = _noSqlDataReader.GetBrand(offer.BrandId);
+
+                var brand = await _noSqlDataReader.GetBrand(offer.BrandId);
 
                 var trackingLink = await _repository.CreateAsync(new()
                 {
@@ -85,7 +86,8 @@ namespace MarketingBox.TrackingLink.Service.Services
                     BrandId = brand.Id,
                     LinkParameterValues = request.LinkParameterValues,
                     LinkParameterNames = _mapper.Map<LinkParameterNames>(brand.LinkParameters),
-                    UniqueId = uniqueId
+                    UniqueId = uniqueId,
+                    TenantId = tenantId
                 });
 
                 _logger.LogInformation("Sending message to service bus: {@context}", trackingLink);
@@ -106,7 +108,7 @@ namespace MarketingBox.TrackingLink.Service.Services
             }
             catch (Exception e)
             {
-                _logger.LogError(e,@"Error occurred while processing request {@Request}",request);
+                _logger.LogError(e, @"Error occurred while processing request {@Request}", request);
                 return e.FailedResponse<string>();
             }
         }
