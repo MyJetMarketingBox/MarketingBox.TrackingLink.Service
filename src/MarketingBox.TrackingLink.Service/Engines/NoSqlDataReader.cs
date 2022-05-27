@@ -6,9 +6,7 @@ using MarketingBox.Affiliate.Service.Domain.Models.Affiliates;
 using MarketingBox.Affiliate.Service.Domain.Models.Brands;
 using MarketingBox.Affiliate.Service.Domain.Models.OfferAffiliates;
 using MarketingBox.Affiliate.Service.Domain.Models.Offers;
-using MarketingBox.Affiliate.Service.MyNoSql.Offer;
 using MarketingBox.TrackingLink.Service.Engines.Interfaces;
-using MyNoSqlServer.Abstractions;
 
 namespace MarketingBox.TrackingLink.Service.Engines
 {
@@ -16,19 +14,17 @@ namespace MarketingBox.TrackingLink.Service.Engines
     {
         private readonly IOfferClient _offerClient;
         private readonly IOfferAffiliateClient _offerAffiliateClient;
-        private readonly IMyNoSqlServerDataReader<OfferNoSql> _noSqlReader;
         private readonly IAffiliateClient _affiliateClient;
         private readonly IBrandClient _brandClient;
 
         public NoSqlDataReader(IOfferClient offerClient,
             IOfferAffiliateClient offerAffiliateClient,
-            IAffiliateClient affiliateClient, IBrandClient brandClient, IMyNoSqlServerDataReader<OfferNoSql> noSqlReader)
+            IAffiliateClient affiliateClient, IBrandClient brandClient)
         {
             _offerClient = offerClient;
             _offerAffiliateClient = offerAffiliateClient;
             _affiliateClient = affiliateClient;
             _brandClient = brandClient;
-            _noSqlReader = noSqlReader;
         }
 
         public async Task<BrandMessage> GetBrand(long brandId)
