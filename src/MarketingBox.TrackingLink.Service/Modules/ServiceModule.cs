@@ -15,11 +15,12 @@ namespace MarketingBox.TrackingLink.Service.Modules
         {
             var noSqlClient = builder.CreateNoSqlClient(
                 Program.ReloadedSettings(e => e.MyNoSqlReaderHostPort).Invoke(),
-                new LoggerFactory());
-            builder.RegisterAffiliateClient(Program.Settings.AffiliateServiceUrl, noSqlClient);
-            builder.RegisterBrandClient(Program.Settings.AffiliateServiceUrl, noSqlClient);
-            builder.RegisterOfferClient(Program.Settings.AffiliateServiceUrl, noSqlClient);
-            builder.RegisterOfferAffiliateClient(Program.Settings.AffiliateServiceUrl, noSqlClient);
+                Program.LogFactory);
+            var authServiceUrl = Program.ReloadedSettings(e => e.AffiliateServiceUrl).Invoke();
+            builder.RegisterAffiliateClient(authServiceUrl, noSqlClient);
+            builder.RegisterBrandClient(authServiceUrl, noSqlClient);
+            builder.RegisterOfferClient(authServiceUrl, noSqlClient);
+            builder.RegisterOfferAffiliateClient(authServiceUrl, noSqlClient);
 
             builder.RegisterType<TrackingLinkRepository>()
                 .As<ITrackingLinkRepository>()
