@@ -30,7 +30,8 @@ namespace MarketingBox.TrackingLink.Service.Services
             ITrackingLinkRepository repository,
             IMapper mapper,
             INoSqlDataReader noSqlDataReader,
-            IServiceBusPublisher<TrackingLinkUpsertMessage> publisherTrackingLink, ILogger<TrackingLinkService> logger)
+            IServiceBusPublisher<TrackingLinkUpsertMessage> publisherTrackingLink,
+            ILogger<TrackingLinkService> logger)
         {
             _repository = repository;
             _mapper = mapper;
@@ -77,11 +78,17 @@ namespace MarketingBox.TrackingLink.Service.Services
                     offer = await _noSqlDataReader.GetOffer(offerAffiliate.OfferId);
                 }
 
+                if (offer.State == OfferState.NotActive)
+                {
+                    throw new BadRequestException($"Offer is {offer.State} now, you can't use this link.");
+                }
+
                 var brand = await _noSqlDataReader.GetBrand(offer.BrandId);
 
                 var trackingLink = await _repository.CreateAsync(new()
                 {
                     Link = brand.Link,
+                    OfferId = offer.Id,
                     AffiliateId = affiliateId,
                     BrandId = brand.Id,
                     LinkParameterValues = request.LinkParameterValues,
