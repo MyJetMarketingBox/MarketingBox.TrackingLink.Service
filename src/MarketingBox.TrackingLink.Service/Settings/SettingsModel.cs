@@ -22,5 +22,7 @@ namespace MarketingBox.TrackingLink.Service.Settings
         
         [YamlProperty("MarketingBoxTrackingLinkService.MarketingBoxServiceBusHostPort")]
         public string MarketingBoxServiceBusHostPort { get; set; }
+        [YamlProperty("MarketingBoxTrackingLinkService.AffiliateServiceUrl")]
+        public string AffiliateServiceUrl { get; set; }
     }
 }

@@ -7,9 +7,9 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-    <PackageReference Include="MarketingBox.Affiliate.Service.Client" Version="2.3.1" />
-    <PackageReference Include="MarketingBox.Sdk.Common" Version="1.0.14" />
-    <PackageReference Include="MyJetWallet.Sdk.NoSql" Version="2.2.2" />
+    <PackageReference Include="MarketingBox.Affiliate.Service.Client" Version="2.3.13" />
+    <PackageReference Include="MarketingBox.Sdk.Common" Version="1.0.18" />
+    <PackageReference Include="MyJetWallet.Sdk.NoSql" Version="2.2.4" />
   </ItemGroup>
 
 </Project>

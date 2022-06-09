@@ -3,6 +3,7 @@ using System;
 using MarketingBox.TrackingLink.Service.Postgres;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,14 +12,15 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MarketingBox.TrackingLink.Service.Postgres.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220520074527_MultiTenancy")]
+    partial class MultiTenancy
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("trackinglink-service")
-                .HasAnnotation("ProductVersion", "6.0.5")
+                .HasAnnotation("ProductVersion", "6.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -46,9 +48,6 @@ namespace MarketingBox.TrackingLink.Service.Postgres.Migrations
                     b.Property<string>("Link")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<long>("OfferId")
-                        .HasColumnType("bigint");
 
                     b.Property<long?>("RegistrationId")
                         .HasColumnType("bigint");

@@ -8,5 +8,7 @@ namespace MarketingBox.TrackingLink.Service.Domain.Models
         public LinkParameterValues LinkParameterValues { get; set; }
         public string UniqueId { get; set; }
         public LinkParameterNames LinkParameterNames { get; set; }
+        public string TenantId { get; set; }
+        public long OfferId { get; set; }
     }
 }
