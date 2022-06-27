@@ -126,28 +126,28 @@ namespace MarketingBox.TrackingLink.Service.Services
             builder.Append(trackingLink.Link);
             builder.Append("?");
             AppendParameter(
-                trackingLink.LinkParameterNames.Language,
-                trackingLink.LinkParameterValues.Language,
+                trackingLink.LinkParameterNames?.Language,
+                trackingLink.LinkParameterValues?.Language,
                 builder);
             AppendParameter(
-                trackingLink.LinkParameterNames.ClickId,
+                trackingLink.LinkParameterNames?.ClickId,
                 trackingLink.ClickId.ToString(),
                 builder);
             AppendParameter(
-                trackingLink.LinkParameterNames.MPC_1,
-                trackingLink.LinkParameterValues.MPC_1,
+                trackingLink.LinkParameterNames?.MPC_1,
+                trackingLink.LinkParameterValues?.MPC_1,
                 builder);
             AppendParameter(
-                trackingLink.LinkParameterNames.MPC_2,
-                trackingLink.LinkParameterValues.MPC_2,
+                trackingLink.LinkParameterNames?.MPC_2,
+                trackingLink.LinkParameterValues?.MPC_2,
                 builder);
             AppendParameter(
-                trackingLink.LinkParameterNames.MPC_3,
-                trackingLink.LinkParameterValues.MPC_3,
+                trackingLink.LinkParameterNames?.MPC_3,
+                trackingLink.LinkParameterValues?.MPC_3,
                 builder);
             AppendParameter(
-                trackingLink.LinkParameterNames.MPC_4,
-                trackingLink.LinkParameterValues.MPC_4,
+                trackingLink.LinkParameterNames?.MPC_4,
+                trackingLink.LinkParameterValues?.MPC_4,
                 builder);
 
             builder.Remove(builder.Length - 1, 1);
